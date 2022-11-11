@@ -4,17 +4,32 @@ var yourWin = document.getElementById('your-win');
 var yourLoss = document.getElementById('your-loss');
 var countDown = document.getElementById('countdown');
 var testDown = document.getElementById('text-countdown');
+var btnStart = document.getElementById('start-game')
+var blank = document.getElementById('blank');
+var timeLeft = 3; //set timeleft
+
+var guessWords = ['javascript','spaghetti','corndog','hawaii','goldendoodle']
+
+function pickWord(words) {
+    var wordChosen = '';
+    var randomNum = Math.floor(Math.random() * words.length)
+    for(var i = 0; i < words.length; i++) {
+        if(i === randomNum) {
+            wordChosen = words[i]
+        }
+    }
+    return wordChosen;
+
+}
+
+var chosenWord = pickWord(guessWords)
+console.log(chosenWord) //CHOSEN WORD
 
 
 
 
 
-yourWin.textContent = 'You have ' + 1 + ' win(s)';
-yourLoss.textContent = 'You have ' + 2 + ' loss(es)';
-
-var timeLeft = 10; //set timeleft
-
-function testCount() { //always create countdown function first
+function countdown() { //always create countdown function first
 
     
    var timeInterval = setInterval(function ()  {
@@ -23,39 +38,34 @@ function testCount() { //always create countdown function first
 
         if(timeLeft === 0) {
             clearInterval(timeInterval);
-            countDown.textContent = 'test'
-        } else {
-            message()
-        }
-
-
-
-
+            countDown.textContent = 'GAME OVER'
+        } 
+    
 
     } /*first parameter*/,1000 /*<--second parameter*/);
 }
 
-var randomText = 'Hello this is a test'
-var splitText = randomText.split(' ')
+function keyAction(e) {
+    var key = e.key;
+    blank.textContent = key
+}
 
-function message() {
-
-    var wordCount = 0;
-    var textInterval = setInterval(function(){
-
-        if(splitText[wordCount] === undefined) {
-            clearInterval(textInterval)
-        } else {
-            testDown.textContent = splitText[wordCount]
-            wordCount++;
-        }
-
-
-    },1000)
-
+function whereToGuess() {
 }
 
 
-var thirdBox = document.getElementById('guess-title');
 
-thirdBox.c
+
+
+function startGame() {
+
+
+    countdown()
+
+
+}
+document.addEventListener('keydown',keyAction)
+btnStart.addEventListener('click',startGame)
+
+
+
